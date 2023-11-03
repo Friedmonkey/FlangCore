@@ -10,6 +10,7 @@ namespace FriedLanguage
     {
         private static bool isInConstructor = false;
         private static bool csCodeGeneration = true;
+        private static bool ClassifyIdentifierAsLogicalMessages = true;
         public static void EnterConstructor()
         { 
             isInConstructor = true;
@@ -34,6 +35,19 @@ namespace FriedLanguage
         public static bool IsCodeGenerationAllowed()
         {
             return csCodeGeneration;
+        }
+
+        public static void EnableLogicalIdentMessages()
+        {
+            ClassifyIdentifierAsLogicalMessages = true;
+        }
+        public static void DisableLogicalIdentMessages()
+        {
+            ClassifyIdentifierAsLogicalMessages = false;
+        }
+        public static bool IsLogicalIdentMessages()
+        {
+            return ClassifyIdentifierAsLogicalMessages;
         }
     }
 }

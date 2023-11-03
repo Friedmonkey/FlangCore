@@ -160,6 +160,11 @@ namespace FriedLanguage
                 GlobalState.AllowCodeGeneration();
                 return;
             }
+            //if (keyword == "logic")
+            //{
+            //    GlobalState.EnableLogicalIdentMessages();
+            //    return;
+            //}
             var exists = (DisabledKeywords.Contains(keyword));
             if (exists)
                 DisabledKeywords.Remove(keyword);
@@ -171,6 +176,11 @@ namespace FriedLanguage
                 GlobalState.DisallowCodeGeneration();
                 return;
             }
+            //if (keyword == "logic")
+            //{
+            //    GlobalState.DisableLogicalIdentMessages();
+            //    return;
+            //}
             var exists = (DisabledKeywords.Contains(keyword));
             if (!exists)
                 DisabledKeywords.Add(keyword);

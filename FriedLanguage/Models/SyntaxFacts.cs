@@ -80,31 +80,38 @@ namespace FriedLanguage.Models
             {
                 case "becomes":
                     token.Type = SyntaxType.Equals;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched becomes");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched becomes");
                     break;
                 case "is":
                     token.Type = SyntaxType.EqualsEquals;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched is");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched is");
                     break;
                 case "or":
                     token.Type = SyntaxType.OrOr;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched or");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched or");
                     break;
                 case "and":
                     token.Type = SyntaxType.AndAnd;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched and");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched and");
                     break;
                 case "not":
                     token.Type = SyntaxType.Bang;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched not");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched not");
                     break;
                 case "then":
                     token.Type = SyntaxType.LBraces;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched then");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched then");
                     break;
                 case "stop":
                     token.Type = SyntaxType.RBraces;
-                    Console.WriteLine("ClassifyIdentifierAsLogical matched stop");
+                    if (GlobalState.IsLogicalIdentMessages())
+                        Console.WriteLine("ClassifyIdentifierAsLogical matched stop");
                     break;
                 default:
                     break;

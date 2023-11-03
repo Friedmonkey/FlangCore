@@ -23,7 +23,15 @@ namespace FriedLanguage
 
         public Lexer(string code)
         {
-            Code = code;
+            if (code.TrimStart().StartsWith("##disable logicNotifier"))
+            {
+                //Console.WriteLine("logic notifer has been disabled");
+                //Code = code.TrimStart().Substring(22).TrimStart();
+                GlobalState.DisableLogicalIdentMessages();
+                Code = "//"+code.Substring(2);
+            }
+            else
+                Code = code;
         }
 
         public List<SyntaxToken> Lex() 
