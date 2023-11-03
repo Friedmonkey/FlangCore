@@ -1,0 +1,45 @@
+﻿using FriedLanguage.BuiltinType;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FriedLanguage.Models.Parsing.Nodes
+{
+    internal class UnaryExpressionNode : SyntaxNode
+    {
+        private SyntaxToken token;
+        private SyntaxNode rhs;
+
+        public UnaryExpressionNode(SyntaxToken token, SyntaxNode rhs) : base(token.Position, rhs.EndPosition)
+        {
+            this.token = token;
+            this.rhs = rhs;
+        }
+
+        public override NodeType Type => NodeType.UnaryExpression;
+
+        public override FValue Evaluate(Scope scope)
+        {
+            switch (token.Type)
+            {
+                case SyntaxType.Bang: return rhs.Evaluate(scope).Not();
+                case SyntaxType.Minus: return rhs.Evaluate(scope).ArithNot();
+                case SyntaxType.Plus: return rhs.Evaluate(scope);
+                default: throw new InvalidOperationException();
+            }
+        }
+
+        public override IEnumerable<SyntaxNode> GetChildren()
+        {
+            yield return new TokenNode(token);
+            yield return rhs;
+        }
+
+        public override string ToString()
+        {
+            return "UnaryExpressionNode:";
+        }
+    }
+}
