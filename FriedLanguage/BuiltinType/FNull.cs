@@ -39,7 +39,10 @@ namespace FriedLanguage.BuiltinType
             }
             else
             {
-                return new FBool(true);
+                if (other is FNull)
+                    return new FBool(true);
+                else
+                    return new FBool(false);
                 //throw base.NotSupportedOn("Equals");
             }
         }

@@ -107,6 +107,16 @@ namespace FriedLang.NativeLibraries
 
                 return new FString(self.Value.Replace(replacing.Value, replacement.Value));
             }
+            public static FValue Contains(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (arguments[1] is not FString contains)
+                    throw new Exception("Expected argument 1 to be a string");
+
+                return new FBool(self.Value.Contains(contains.Value));
+            }
         }
     }
 }

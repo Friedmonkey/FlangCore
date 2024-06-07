@@ -33,7 +33,8 @@ namespace FriedLang.NativeLibraries
                 new FlangMethod("split",String.Split,ClassOptions.Extend,"string split"),
                 new FlangMethod("join",String.Join,ClassOptions.Extend|ClassOptions.Static,"string char","list lst"),
                 new FlangMethod("format",String.Format,ClassOptions.Extend|ClassOptions.Static,"string formatable","list lst"),
-                new FlangMethod("replace",String.Replace,ClassOptions.Extend,"string replacing","string replacement")
+                new FlangMethod("replace",String.Replace,ClassOptions.Extend,"string replacing","string replacement"),
+                new FlangMethod("contains",String.Contains,ClassOptions.Extend,"string contains")
             });
             var intClass = new FlangClass("Int", extends: true,
             methods: new FlangMethod[]
