@@ -30,7 +30,8 @@ namespace FriedLanguage.BuiltinType
             // and any changes to the scope would be reflected in the global scope
             if (DefiningScope.ParentScope == null)
             {
-                DefiningScope = DefiningScope.Clone();
+                //DefiningScope = DefiningScope.Clone();
+                DefiningScope = DefiningScope;
             }
         }
 
