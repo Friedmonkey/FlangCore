@@ -125,6 +125,20 @@ namespace FriedLang.NativeLibraries
 
                 return self.Value.Last().val;
             }
+
+            public static FValue ToString(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FDictionary self)
+                    throw new Exception("Expected argument 0 to be a disctionairy");
+
+                string str = "";
+                foreach (var (key,val) in self.Value)
+                {
+                    str += $"{{ {key.ToSpagString().Value},{val.ToSpagString().Value} }},\n";
+                }
+
+                return new FString(str);
+            }
         }
     }
 }

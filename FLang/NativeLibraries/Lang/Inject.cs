@@ -61,9 +61,10 @@ namespace FriedLang.NativeLibraries
                 new FlangMethod("get",Dict.Get,ClassOptions.Extend,"object key"),
                 new FlangMethod("remove",Dict.Remove,ClassOptions.Extend,"object key"),
                 new FlangMethod("removeAt",Dict.RemoveAt,ClassOptions.Extend,"int index"),
-                new FlangMethod("containsKey",Dict.ContainsKey,ClassOptions.Extend,"kobject ey"),
+                new FlangMethod("containsKey",Dict.ContainsKey,ClassOptions.Extend,"object key"),
                 new FlangMethod("containsValue",Dict.ContainsValue,ClassOptions.Extend,"object value"),
                 new FlangMethod("count",Dict.Count,ClassOptions.Extend),
+                new FlangMethod("toString",Dict.ToString,ClassOptions.Extend),
             });
 
             classes.Add(stringClass);
