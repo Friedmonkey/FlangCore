@@ -39,6 +39,10 @@ namespace FriedLanguage.BuiltinType
         {
             Value = vals.ToList();
         }
+        public FList(List<FValue> vals) : base(getClass())
+        {
+            Value = vals;
+        }
 
         public override FValue Dot(FValue other, SyntaxToken Token = default, Scope scope = default)
         {

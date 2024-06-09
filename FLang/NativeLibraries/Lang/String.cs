@@ -117,6 +117,70 @@ namespace FriedLang.NativeLibraries
 
                 return new FBool(self.Value.Contains(contains.Value));
             }
+
+            public static FValue StartsWith(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (arguments[1] is not FString with)
+                    throw new Exception("Expected argument 1 to be a string");
+
+                return new FBool(self.Value.StartsWith(with.Value));
+            }
+
+            public static FValue EndsWith(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (arguments[1] is not FString with)
+                    throw new Exception("Expected argument 1 to be a string");
+
+                return new FBool(self.Value.EndsWith(with.Value));
+            }
+
+            public static FValue SubString(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (arguments[1] is not FInt start)
+                    throw new Exception("Expected argument 1 to be a int");
+
+                if (arguments[1] is not FInt length)
+                    throw new Exception("Expected argument 1 to be a int");
+
+                int len = length.Value;
+
+                if (len == -1)
+                    len = self.Value.Length;
+
+                return new FString(self.Value.Substring(start.Value,len));
+            }
+
+            public static FValue ToUpper(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                return new FString(self.Value.ToUpper());
+            }
+            public static FValue ToLower(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                return new FString(self.Value.ToUpper());
+            }
+
+            public static FValue Trim(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString self)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                return new FString(self.Value.Trim());
+            }
         }
     }
 }

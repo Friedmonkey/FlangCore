@@ -84,6 +84,34 @@ namespace FriedLang.NativeLibraries
 
                 return self.Value.Last();
             }
+            public static FValue Clear(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FList self)
+                    throw new Exception("Expected argument 0 to be a list");
+
+                self.Value.Clear();
+
+                return FBool.True;
+            }
+            public static FValue Sort(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FList self)
+                    throw new Exception("Expected argument 0 to be a list");
+
+                self.Value.Sort();
+
+                return FBool.True;
+            }
+
+            public static FValue Reverse(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FList self)
+                    throw new Exception("Expected argument 0 to be a list");
+
+                self.Value.Reverse();
+
+                return FBool.True;
+            }
         }
     }
 }

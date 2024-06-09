@@ -15,7 +15,7 @@ namespace FriedLang.NativeLibraries
             public static FValue Add(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FValue key)
                     throw new Exception("Expected argument 1 to be a key");
@@ -30,7 +30,7 @@ namespace FriedLang.NativeLibraries
             public static FValue Get(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FValue key)
                     throw new Exception("Expected argument 1 to be a key");
@@ -48,7 +48,7 @@ namespace FriedLang.NativeLibraries
             public static FValue Remove(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FValue key)
                     throw new Exception("Expected argument 1 to be a key");
@@ -66,7 +66,7 @@ namespace FriedLang.NativeLibraries
             public static FValue RemoveAt(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FInt val)
                     throw new Exception("Expected argument 1 to be a int");
@@ -78,7 +78,7 @@ namespace FriedLang.NativeLibraries
             public static FValue ContainsKey(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FValue key)
                     throw new Exception("Expected argument 1 to be a key");
@@ -91,7 +91,7 @@ namespace FriedLang.NativeLibraries
             public static FValue ContainsValue(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 if (arguments[1] is not FValue value)
                     throw new Exception("Expected argument 1 to be a value");
@@ -104,7 +104,7 @@ namespace FriedLang.NativeLibraries
             public static FValue Count(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
 
                 return new FInt(self.Value.Count());
@@ -112,7 +112,7 @@ namespace FriedLang.NativeLibraries
             public static FValue First(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
 
                 return self.Value.First().val;
@@ -120,7 +120,7 @@ namespace FriedLang.NativeLibraries
             public static FValue Last(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a list");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
 
                 return self.Value.Last().val;
@@ -129,7 +129,7 @@ namespace FriedLang.NativeLibraries
             public static FValue ToString(Scope scope, List<FValue> arguments)
             {
                 if (arguments[0] is not FDictionary self)
-                    throw new Exception("Expected argument 0 to be a disctionairy");
+                    throw new Exception("Expected argument 0 to be a dictionairy");
 
                 string str = "";
                 foreach (var (key,val) in self.Value)
@@ -138,6 +138,35 @@ namespace FriedLang.NativeLibraries
                 }
 
                 return new FString(str);
+            }
+
+            public static FValue GetKeys(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FDictionary self)
+                    throw new Exception("Expected argument 0 to be a dictionairy");
+
+                List<FValue> keys = self.Value.Select(x => x.key).ToList();
+
+                return new FList(keys);
+            }
+            public static FValue GetValues(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FDictionary self)
+                    throw new Exception("Expected argument 0 to be a dictionairy");
+
+                List<FValue> values = self.Value.Select(x => x.val).ToList();
+
+                return new FList(values);
+            }
+
+            public static FValue Clear(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FDictionary self)
+                    throw new Exception("Expected argument 0 to be a dictionairy");
+
+                self.Value.Clear();
+
+                return FBool.True;
             }
         }
     }
