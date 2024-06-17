@@ -52,6 +52,7 @@ namespace FriedLanguage
             GlobalScope.SetAdmin("Long", new FClass("Long", true, true));
             GlobalScope.SetAdmin("List", new FClass("List", true, true));
             GlobalScope.SetAdmin("Dict", new FClass("Dict", true, true));
+            GlobalScope.SetAdmin("Dynamic", new FClass("Dynamic", true, true));
             #endregion
         }
 

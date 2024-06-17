@@ -21,6 +21,7 @@ namespace FriedLanguage.BuiltinType
         Function,
         NativeLibraryImporter,
         Dictionary,
+        Dynamic,
         Class,
         NativeObject,
         ClassInstance,

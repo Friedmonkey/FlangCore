@@ -433,6 +433,7 @@ namespace FriedLanguage
                         Current.Text == "object" ||
                         Current.Text == "list" ||
                         Current.Text == "dictionary" ||
+                        Current.Text == "dynamic" ||
                         Current.Text == "void"
 
                     ) && Peek(1).Type == SyntaxType.Identifier
@@ -763,6 +764,7 @@ namespace FriedLanguage
                     Current.Text == "object" ||
                     Current.Text == "list" ||
                     Current.Text == "dictionary" ||
+                    Current.Text == "dynamic" ||
                     Current.Text == "void"
                 ) && Peek(1).Type == SyntaxType.Identifier
                 )
@@ -916,6 +918,9 @@ namespace FriedLanguage
                     Position++;
                     break;
                 case "dictionary":
+                    Position++;
+                    break;
+                case "dynamic":
                     Position++;
                     break;
                 case "object":
@@ -1256,6 +1261,7 @@ namespace FriedLanguage
                     Current.Text == "object" ||
                     Current.Text == "list" ||
                     Current.Text == "dictionary" ||
+                    Current.Text == "dynamic" ||
                     Current.Text == "void"
                 )
             )

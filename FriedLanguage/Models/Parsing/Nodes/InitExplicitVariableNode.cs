@@ -100,6 +100,9 @@ namespace FriedLanguage.Models.Parsing.Nodes
                         case "dictionary":
                             val = new FDictionary();
                             break;
+                        case "dynamic":
+                            val = new FDynamic();
+                            break;
                     }
                     var t = val.GetType();
                     if (val.GetType().Name is "FClassInstance")

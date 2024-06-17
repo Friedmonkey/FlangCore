@@ -94,6 +94,9 @@ namespace FriedLanguage.Models.Parsing.Nodes
                                         break;
                                     case "dictionary":
                                         val = new FDictionary();
+                                        break; 
+                                    case "dynamic":
+                                        val = new FDynamic();
                                         break;
                                 }
                             }
@@ -183,6 +186,9 @@ namespace FriedLanguage.Models.Parsing.Nodes
                                 break;
                             case "dictionary":
                                 val = new FDictionary();
+                                break;
+                            case "dynamic":
+                                val = new FDynamic();
                                 break;
                         }
                     }
