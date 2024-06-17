@@ -60,6 +60,7 @@ namespace FriedLang.NativeLibraries
                 new FlangMethod("clear",List.Clear,ClassOptions.Extend),
                 new FlangMethod("sort",List.Sort,ClassOptions.Extend),
                 new FlangMethod("reverse",List.Reverse,ClassOptions.Extend),
+                new FlangMethod("create",List.Create,ClassOptions.Static),
             });
             var dictClass = new FlangClass("Dict", extends: true,
             methods: new FlangMethod[]
@@ -77,6 +78,7 @@ namespace FriedLang.NativeLibraries
                 new FlangMethod("getKeys",Dict.GetKeys,ClassOptions.Extend),
                 new FlangMethod("getValues",Dict.GetValues,ClassOptions.Extend),
                 new FlangMethod("clear",Dict.Clear,ClassOptions.Extend),
+                new FlangMethod("create",Dict.Create,ClassOptions.Static),
             });
 
             classes.Add(stringClass);

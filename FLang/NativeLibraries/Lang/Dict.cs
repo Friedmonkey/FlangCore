@@ -168,6 +168,10 @@ namespace FriedLang.NativeLibraries
 
                 return FBool.True;
             }
+            public static FValue Create(Scope scope, List<FValue> arguments)
+            {
+                return new FDictionary();
+            }
         }
     }
 }

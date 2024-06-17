@@ -46,6 +46,19 @@ namespace FriedLang.NativeLibraries
 
                 return new FString(text);
             }
+            public static FValue ReadAllLines(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString path)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (!System.IO.File.Exists(path.Value))
+                    throw new Exception("File not found!");
+
+
+                string[] lines = System.IO.File.ReadAllLines(path.Value);
+
+                return new FList(lines);
+            }
         }
     }
 }
