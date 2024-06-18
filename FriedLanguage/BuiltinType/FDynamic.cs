@@ -29,6 +29,10 @@ namespace FriedLanguage.BuiltinType
                 Value.Add((Properties[i], Values[i]));
             }
         }
+        public FDynamic(List<(FValue property, FValue val)> val) : base(getClass())
+        {
+            Value = new List<(FValue property, FValue val)>(val);
+        }
 
         public override FValue DotAssignment(FValue key, FValue other, Scope scope = null)
         {
