@@ -30,6 +30,10 @@ namespace FriedLanguage.BuiltinType
                 Value.Add((Keys[i], Values[i]));
             }
         }
+        public FDictionary(List<(FValue property, FValue val)> val) : base(getClass())
+        {
+            Value = new List<(FValue property, FValue val)>(val);
+        }
 
         public override FValue Dot(FValue other, SyntaxToken Token = default, Scope scope = default)
         {
@@ -88,8 +92,7 @@ namespace FriedLanguage.BuiltinType
             return FValue.Null;
             //throw new Exception($"Key \"{index.ToSpagString().Value}\" does not exist within this dictionairy");
 		}
-
-		public override bool IsTruthy()
+        public override bool IsTruthy()
         {
             return Value != null;
         }

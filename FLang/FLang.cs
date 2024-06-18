@@ -11,6 +11,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static FriedLang.NativeLibraries.Lang;
 
 namespace FriedLang
 {
@@ -72,6 +73,34 @@ namespace FriedLang
 
             return true;
         }
+        public static (List<FValue>,List<FValue>) ToFriedDictionary(IEnumerable<(object,object)> list)
+        {
+
+            List<FValue> Keys = new List<FValue>();
+            List<FValue> Values = new List<FValue>();
+
+            //foreach (var kvp in list)
+            //{
+            //    Dictionary.Add(kvp.Key, kvp.Value);
+            //}
+
+            //if (!IsDictionary(Dictionary.GetType()))
+            //{
+            //    throw new Exception("This isnt a dictionary!!!");
+            //}
+
+            //var Keys = ToFriedList(Dictionary.Keys);
+            //var Values = ToFriedList(Dictionary.Values);
+
+            //if (Keys == null || Values == null)
+            //    return false;
+
+            //FDictionary dict = new(Keys, Values);
+
+            //_interpreter.GlobalScope.Set(Name, dict);
+
+            return (Keys, Values);
+        }
         public static List<FValue> ToFriedList(IEnumerable<object> List) 
 		{
 			var output = new List<FValue>();
@@ -102,8 +131,16 @@ namespace FriedLang
             if (Value is long value6)
                 return new FLong(value6);
 
+
+            if (Value is IEnumerable<(object, object)> value8)
+            {
+                (var keys, var values) = ToFriedDictionary(value8);
+                return new FDictionary(keys, values);
+            }
+
 			if (Value is IEnumerable<object> value7) 
 				return new FList(ToFriedList(value7).ToArray());
+
 
             return null;
 		}
@@ -120,6 +157,7 @@ namespace FriedLang
         {
             if (dict is not FDictionary fdict)
                 return null;
+
 
             var Dictionary = FromFriedDictionary(fdict.Value);
 
@@ -144,6 +182,19 @@ namespace FriedLang
                 Dictionary.Add(FromFriedVar(key), FromFriedVar(value));
             }
             return Dictionary;
+        }
+        public static List<T> FromFriedList<T>(List<FValue> List)
+        {
+            var output = new List<T>();
+            foreach (FValue item in List)
+            {
+                var vr = FromFriedVar(item);
+                if (vr != null && vr is T)
+                {
+                    output.Add((T)vr);
+                }
+            }
+            return output;
         }
         public static List<object> FromFriedList(List<FValue> List)
         {
@@ -180,6 +231,9 @@ namespace FriedLang
 
             if (Value is FDictionary value8)
                 return FromFriedDictionary(value8.Value);
+
+            if (Value is FDynamic value9)
+                return FromFriedDictionary(value9.Value);
 
             return null;
         }

@@ -1382,7 +1382,7 @@ namespace FriedLanguage
             var lsq = MatchToken(SyntaxType.LBraces);
             SyntaxToken rsq;
 
-            List<(SyntaxToken tok, SyntaxNode expr)> dict = new();
+            List<(SyntaxNode tok, SyntaxNode expr)> dict = new();
 
             if (Current.Type == SyntaxType.RBraces)
             {
@@ -1390,17 +1390,18 @@ namespace FriedLanguage
             }
             else
             {
-                var tok = default(SyntaxToken);
+                //var tok = default(SyntaxToken);
 
-                if (Current.Type == SyntaxType.String || Current.Type == SyntaxType.Int)
-                {
-					Position++;
-					tok = Peek(-1);
-				}else
-					throw MakeException("Unexpected token " + Current.Type + "; expected string or int");
+    //            if (Current.Type == SyntaxType.String || Current.Type == SyntaxType.Int)
+    //            {
+				//	Position++;
+				//	tok = Peek(-1);
+				//}else
+				//	throw MakeException("Unexpected token " + Current.Type + "; expected string or int");
 
 
 
+                var tok = ParseExpression();
 				_ = MatchToken(SyntaxType.Colon);
                 var expr = ParseExpression();
                 dict.Add((tok, expr));
@@ -1409,7 +1410,8 @@ namespace FriedLanguage
                 {
                     Position++;
 
-                    tok = MatchToken(SyntaxType.String);
+                    //tok = MatchToken(SyntaxType.String);
+                    tok = ParseExpression();
                     _ = MatchToken(SyntaxType.Colon);
                     expr = ParseExpression();
 
@@ -1419,7 +1421,7 @@ namespace FriedLanguage
                 rsq = MatchToken(SyntaxType.RBraces);
             }
 
-            return new DictNode(dict, lsq, rsq);
+            return new DynamicNode(dict, lsq, rsq);
         }
 
         public SyntaxNode ParseIfExpression()

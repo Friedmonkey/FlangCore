@@ -28,6 +28,31 @@ namespace FriedLang.NativeLibraries
                     new FlangMethod("readLines",File.ReadAllLines,ClassOptions.Static,"string path"),
                     new FlangMethod("exists",File.Exists,ClassOptions.Static,"string path"),
             });
+            var directoryClass = new FlangClass("Dir", extends: false,
+            methods: new FlangMethod[]
+            {
+                    new FlangMethod("create",Dir.Create,ClassOptions.Static,"string path"),
+                    new FlangMethod("delete",Dir.Delete,ClassOptions.Static,"string path"),
+                    new FlangMethod("deleteForce",Dir.Delete,ClassOptions.Static,"string path", "bool force"),
+                    new FlangMethod("getDirectories",Dir.GetDirectories,ClassOptions.Static,"string path"),
+                    new FlangMethod("getFiles",Dir.GetFiles,ClassOptions.Static,"string path"),
+                    new FlangMethod("exists",Dir.Exists,ClassOptions.Static,"string path"),
+            });
+            var pathClass = new FlangClass("Path", extends: false,
+            methods: new FlangMethod[]
+            {
+                    new FlangMethod("combine",Path.Combine,ClassOptions.Static,"string path", "string path"),
+                    new FlangMethod("combineList",Path.Combine,ClassOptions.Static,"list paths"),
+                    new FlangMethod("getFileName",Path.GetFileName,ClassOptions.Static,"string path"),
+                    new FlangMethod("getDirectoryName",Path.GetDirectoryName,ClassOptions.Static,"string path"),
+                    new FlangMethod("exists",Path.Exists,ClassOptions.Static,"string path"),
+            });
+            var JSONClass = new FlangClass("JSON", extends: false,
+            methods: new FlangMethod[]
+            {
+                    new FlangMethod("serialize",JSON.Serialize,ClassOptions.Static,"object obj"),
+                    new FlangMethod("deserialize",JSON.Deserialize,ClassOptions.Static,"string json"),
+            });
             var apiClass = new FlangClass("Api", extends: false,
             methods: new FlangMethod[]
             {
@@ -37,6 +62,9 @@ namespace FriedLang.NativeLibraries
             });
 
             classes.Add(fileClass);
+            classes.Add(directoryClass);
+            classes.Add(pathClass);
+            classes.Add(JSONClass);
             classes.Add(apiClass);
             return classes;
         }

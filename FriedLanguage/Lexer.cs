@@ -34,6 +34,19 @@ namespace FriedLanguage
                 Code = code;
         }
 
+        public bool Find(string find)
+        {
+            for (int i = 0; i < find.Length; i++)
+            {
+                if (Peek(i) == find[i])
+                {
+                    continue;
+                }
+                else return false;
+            }
+            Position += find.Length;
+            return true;
+        }
         public List<SyntaxToken> Lex() 
         {
             List<SyntaxToken> tokens = new List<SyntaxToken>();
@@ -42,6 +55,19 @@ namespace FriedLanguage
             {
                 //generic token
                 SyntaxToken insertToken = new SyntaxToken(SyntaxType.BadToken,Position,null,Current.ToString());
+
+
+                if (Find("{raw{"))
+                {
+                    SyntaxToken? token = ParseRawString();
+                    if (token is null)
+                    {
+                        throw new Exception("raw string failed");
+                    }
+                    else
+                        tokens.Add((SyntaxToken)token);
+                }
+
                 switch (Current)
                 {
                     case ';':
@@ -364,7 +390,23 @@ namespace FriedLanguage
             return token;
         }
 
+        private SyntaxToken? ParseRawString()
+        {
+            string str = "";
+            int startPos = Position;
 
+            while (Current != '\0')
+            {
+                if (Find("}raw}"))
+                {
+                    break;
+                }
+
+                str += Current;
+                Position++;
+            }
+            return new(SyntaxType.String, startPos, str, str);
+        }
         private SyntaxToken? ParseString()
         {
             string str = "";

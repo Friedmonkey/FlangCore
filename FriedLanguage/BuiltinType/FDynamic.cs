@@ -95,7 +95,16 @@ namespace FriedLanguage.BuiltinType
             return FValue.Null;
 		}
 
-		public override bool IsTruthy()
+        public override FValue CastToBuiltin(FBuiltinType other)
+        {
+            if (other != FBuiltinType.Dictionary)
+                throw CastInvalid("native " + other.ToString());
+
+
+            return new FDictionary(this.Value);
+        }
+
+        public override bool IsTruthy()
         {
             return Value != null;
         }
