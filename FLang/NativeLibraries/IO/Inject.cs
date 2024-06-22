@@ -35,7 +35,9 @@ namespace FriedLang.NativeLibraries
                     new FlangMethod("delete",Dir.Delete,ClassOptions.Static,"string path"),
                     new FlangMethod("deleteForce",Dir.Delete,ClassOptions.Static,"string path", "bool force"),
                     new FlangMethod("getDirectories",Dir.GetDirectories,ClassOptions.Static,"string path"),
+                    new FlangMethod("getDirs",Dir.GetDirectories,ClassOptions.Static,"string path"),
                     new FlangMethod("getFiles",Dir.GetFiles,ClassOptions.Static,"string path"),
+                    new FlangMethod("getCurrent",Dir.GetCurrent,ClassOptions.Static),
                     new FlangMethod("exists",Dir.Exists,ClassOptions.Static,"string path"),
             });
             var pathClass = new FlangClass("Path", extends: false,
@@ -45,6 +47,7 @@ namespace FriedLang.NativeLibraries
                     new FlangMethod("combineList",Path.Combine,ClassOptions.Static,"list paths"),
                     new FlangMethod("getFileName",Path.GetFileName,ClassOptions.Static,"string path"),
                     new FlangMethod("getDirectoryName",Path.GetDirectoryName,ClassOptions.Static,"string path"),
+                    new FlangMethod("getDirName",Path.GetDirectoryName,ClassOptions.Static,"string path"),
                     new FlangMethod("exists",Path.Exists,ClassOptions.Static,"string path"),
             });
             var JSONClass = new FlangClass("JSON", extends: false,
@@ -52,6 +55,7 @@ namespace FriedLang.NativeLibraries
             {
                     new FlangMethod("serialize",JSON.Serialize,ClassOptions.Static,"object obj"),
                     new FlangMethod("deserialize",JSON.Deserialize,ClassOptions.Static,"string json"),
+                    new FlangMethod("deserializeClass",JSON.DeserializeClass,ClassOptions.Static,"string json", "class clas"),
             });
             var apiClass = new FlangClass("Api", extends: false,
             methods: new FlangMethod[]

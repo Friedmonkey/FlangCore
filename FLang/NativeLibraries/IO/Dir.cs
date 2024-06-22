@@ -73,6 +73,10 @@ namespace FriedLang.NativeLibraries
 
                 return new FList(lines);
             }
+            public static FValue GetCurrent(Scope scope, List<FValue> arguments)
+            {
+                return new FString(System.IO.Directory.GetCurrentDirectory());
+            }
         }
     }
 }

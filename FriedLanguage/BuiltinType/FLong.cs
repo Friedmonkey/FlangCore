@@ -241,7 +241,7 @@ namespace FriedLanguage.BuiltinType
 
         public override FString ToSpagString()
         {
-            return new FString(Value.ToString());
+            return new FString(Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
         }
     }
 }

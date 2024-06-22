@@ -40,16 +40,16 @@ namespace Friedlang.NativeLibraries.IO
     public class JsonParser : AnalizerBase<char>
     {
         public JsonParser() : base('\0'){ }
-        public FDynamic Parse(string input) 
+        public FValue Parse(string input) 
         {
             Analizable = input.ToList();
             Position = 0;
             var output = ParseExpression();
-            if (output is not FDynamic dyanmic)
+            if (output is FNull)
             {
                 throw new Exception("Error parsing json");
             }
-            return dyanmic;
+            return output;
         }
         private char MatchToken(char token)
         {
@@ -177,7 +177,7 @@ namespace Friedlang.NativeLibraries.IO
 
 
 
-                var tok = ParseExpression();
+                var tok = ParseString();
                 _ = MatchToken(':');
                 var expr = ParseExpression();
                 dict.Add((tok, expr));
@@ -282,12 +282,23 @@ namespace Friedlang.NativeLibraries.IO
 
             if (isDecimal)
             {
-                if (!float.TryParse(numStr, NumberStyles.Float, CultureInfo.InvariantCulture, out float floatVal)) throw new Exception("Invalid number (tried to parse " + numStr + " as float)");
+                if (!float.TryParse(numStr, NumberStyles.Float, CultureInfo.InvariantCulture, out float floatVal))
+                {
+                    if (double.TryParse(numStr, NumberStyles.Float, CultureInfo.InvariantCulture, out double doubleVal))
+                    { 
+                        return new FDouble(doubleVal);
+                    }
+                    throw new Exception("Invalid number (tried to parse " + numStr + " as float)");
+                }
                 return new FFloat(floatVal);
             }
             else
             {
-                if (!int.TryParse(numStr, out int intVal)) throw new Exception("Invalid number (tried to parse " + numStr + " as int)");
+                if (!int.TryParse(numStr, out int intVal))
+                { 
+                    if (long.TryParse(numStr, out long longVal)) return new FLong(longVal);
+                    throw new Exception("Invalid number (tried to parse " + numStr + " as int)");
+                }
                 return new FInt(intVal);
             }
         }

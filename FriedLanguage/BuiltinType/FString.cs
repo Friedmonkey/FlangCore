@@ -109,9 +109,9 @@ namespace FriedLanguage.BuiltinType
                         return new FDouble(dval);
                     else break;
                 case FBuiltinType.Bool:
-                    if (Value == "True")
+                    if (Value.ToLower() == "true")
                         return FBool.True;
-                    else if (Value == "False")
+                    else if (Value.ToLower() == "false")
                         return FBool.False;
                     else break;
                 case FBuiltinType.Null:
