@@ -25,8 +25,9 @@ namespace FriedLanguage.Models.Parsing.Nodes
 		public override FValue Evaluate(Scope scope)
 		{
 			Scope foreachScope = new(scope, StartPosition);
+            FValue lastVal = FValue.Null;
 
-			var numerat = list.Evaluate(scope);
+            var numerat = list.Evaluate(scope);
 
 			if (numerat == null)
 				throw new Exception($"Enumareble did not parse.");
@@ -39,9 +40,19 @@ namespace FriedLanguage.Models.Parsing.Nodes
 					foreach (var item in flist.Value)
 					{
 						foreachScope.SetAdmin(iterator.Text, item);
-						block.Evaluate(foreachScope);
-					}
-				}
+                        var foreachBlockRes = block.Evaluate(foreachScope);
+
+                        if (!foreachBlockRes.IsNull()) lastVal = foreachBlockRes;
+
+                        if (foreachScope.State == ScopeState.ShouldBreak) break;
+                        if (foreachScope.State == ScopeState.ShouldJump) break;
+                        if (foreachScope.State != ScopeState.None) foreachScope.SetState(ScopeState.None);
+                    }
+                    if (foreachScope.State == ScopeState.ShouldBreak)
+                    {
+                        foreachScope.SetBreakAmount(foreachScope.BreakAmount - 1);
+                    }
+                }
 				else
 					return new FNull();
 			}
@@ -52,9 +63,19 @@ namespace FriedLanguage.Models.Parsing.Nodes
 					foreach (var item in fdict.Value)
 					{
 						foreachScope.SetAdmin(iterator.Text, item.val);
-						block.Evaluate(foreachScope);
-					}
-				}
+                        var foreachBlockRes = block.Evaluate(foreachScope);
+
+                        if (!foreachBlockRes.IsNull()) lastVal = foreachBlockRes;
+
+                        if (foreachScope.State == ScopeState.ShouldBreak) break;
+                        if (foreachScope.State == ScopeState.ShouldJump) break;
+                        if (foreachScope.State != ScopeState.None) foreachScope.SetState(ScopeState.None);
+                    }
+                    if (foreachScope.State == ScopeState.ShouldBreak)
+                    {
+                        foreachScope.SetBreakAmount(foreachScope.BreakAmount - 1);
+                    }
+                }
 				else
 					return new FNull();
 			}

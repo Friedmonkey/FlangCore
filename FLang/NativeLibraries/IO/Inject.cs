@@ -26,6 +26,7 @@ namespace FriedLang.NativeLibraries
                     new FlangMethod("read",File.Read,ClassOptions.Static,"string path"),
                     new FlangMethod("readAllLines",File.ReadAllLines,ClassOptions.Static,"string path"),
                     new FlangMethod("readLines",File.ReadAllLines,ClassOptions.Static,"string path"),
+                    new FlangMethod("append",File.Append,ClassOptions.Static,"string path", "string text"),
                     new FlangMethod("exists",File.Exists,ClassOptions.Static,"string path"),
             });
             var directoryClass = new FlangClass("Dir", extends: false,

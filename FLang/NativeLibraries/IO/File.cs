@@ -59,6 +59,22 @@ namespace FriedLang.NativeLibraries
 
                 return new FList(lines);
             }
+            public static FValue Append(Scope scope, List<FValue> arguments)
+            {
+                if (arguments[0] is not FString path)
+                    throw new Exception("Expected argument 0 to be a string");
+
+                if (arguments[1] is not FString text)
+                    throw new Exception("Expected argument 1 to be a string");
+
+                if (!System.IO.File.Exists(path.Value))
+                    throw new Exception("File not found!");
+
+
+                System.IO.File.AppendAllText(path.Value, text.Value);
+
+                return FBool.True;
+            }
         }
     }
 }
